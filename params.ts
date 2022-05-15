@@ -1,5 +1,5 @@
 /** A namespace for all parameter types */
-export namespace Params {
+namespace Params {
   export namespace Resource {
     /** A namespace for all of parameters relating to the student resource */
     export namespace Students {
@@ -10,3 +10,5 @@ export namespace Params {
     }
   }
 }
+
+export default Params;

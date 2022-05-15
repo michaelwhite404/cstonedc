@@ -1,16 +1,34 @@
-import { Params } from "./params";
+import { AxiosError } from "axios";
+import { createRequest } from "./createRequest";
+import Context from "./context";
+import Params from "./params";
+import Schema from "./schemas";
+// import Schema from "./schemas";
 
-export namespace Resource {
+namespace Resource {
   export class Students {
-    constructor() {}
+    context: Context;
+    constructor(context: Context) {
+      this.context = context;
+    }
     list() {}
-    get(params: Params.Resource.Students.Get) {
-      return {
-        _id: params.studentId,
-      };
+    async get(params: Params.Resource.Students.Get): Promise<Schema.Student> {
+      try {
+        const parameters = {
+          url: this.context.rootURL + `/students/${params.studentId}`,
+          method: "GET",
+          key: this.context.key,
+        };
+        const res = await createRequest(parameters);
+        return res.data.data.student;
+      } catch (err: any) {
+        throw (err as AxiosError).response?.data;
+      }
     }
     create() {}
     update() {}
     delete() {}
   }
 }
+
+export default Resource;

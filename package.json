@@ -2,7 +2,7 @@
   "name": "cstonedc",
   "version": "1.0.0",
   "description": "Javascript wrapper for Cornerstone API",
-  "main": "app.ts",
+  "main": "index.ts",
   "scripts": {
     "start": "ts-node app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,5 +20,9 @@
   "homepage": "https://github.com/michaelwhite404/cstonedc#readme",
   "dependencies": {
     "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.33",
+    "dotenv": "^16.0.1"
   }
 }
