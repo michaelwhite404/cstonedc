@@ -7,7 +7,7 @@ const cstone = new CStone({ key: process.env.TOKEN! });
 
 const run = async () => {
   const student = await cstone.students.get({
-    studentId: "5f43ba6edca18d644cbf6d87",
+    studentId: "5f43ba6edca18d644cbf6c74",
   });
   console.log(student);
 };

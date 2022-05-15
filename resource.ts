@@ -2,8 +2,7 @@ import { AxiosError } from "axios";
 import { createRequest } from "./createRequest";
 import Context from "./context";
 import Params from "./params";
-import Schema from "./schemas";
-// import Schema from "./schemas";
+import Student from "./Student";
 
 namespace Resource {
   export class Students {
@@ -12,7 +11,7 @@ namespace Resource {
       this.context = context;
     }
     list() {}
-    async get(params: Params.Resource.Students.Get): Promise<Schema.Student> {
+    async get(params: Params.Resource.Students.Get): Promise<Student> {
       try {
         const parameters = {
           url: this.context.rootURL + `/students/${params.studentId}`,
@@ -20,7 +19,7 @@ namespace Resource {
           key: this.context.key,
         };
         const res = await createRequest(parameters);
-        return res.data.data.student;
+        return new Student(res.data.data.student);
       } catch (err: any) {
         throw (err as AxiosError).response?.data;
       }
