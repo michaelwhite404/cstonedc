@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { createRequest } from "./createRequest";
+import { createRequest, RequestParameters } from "./createRequest";
 import Context from "./context";
 import Params from "./params";
 import Student from "./Student";
@@ -13,10 +13,12 @@ namespace Resource {
     list() {}
     async get(params: Params.Resource.Students.Get): Promise<Student> {
       try {
-        const parameters = {
-          url: this.context.rootURL + `/students/${params.studentId}`,
+        const parameters: RequestParameters = {
+          path: "/students/{studentId}",
           method: "GET",
-          key: this.context.key,
+          context: this.context,
+          params,
+          pathParams: ["studentId"],
         };
         const res = await createRequest(parameters);
         return new Student(res.data.data.student);

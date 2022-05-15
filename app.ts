@@ -16,7 +16,6 @@ export default class CStone implements ICStone {
     this;
     this.context = {
       ...context,
-      rootURL: "https://app.cornerstone-schools.org/api",
     };
     this.students = new Resource.Students(this.context);
     this.devices = "";
