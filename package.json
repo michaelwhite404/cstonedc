@@ -1,0 +1,24 @@
+{
+  "name": "cstonedc",
+  "version": "1.0.0",
+  "description": "Javascript wrapper for Cornerstone API",
+  "main": "app.ts",
+  "scripts": {
+    "start": "ts-node app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michaelwhite404/cstonedc.git"
+  },
+  "keywords": [],
+  "author": "Michael White",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/michaelwhite404/cstonedc/issues"
+  },
+  "homepage": "https://github.com/michaelwhite404/cstonedc#readme",
+  "dependencies": {
+    "axios": "^0.27.2"
+  }
+}
