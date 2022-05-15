@@ -8,12 +8,21 @@ export function createRequest<T = any>(parameters: RequestParameters): CStonePro
   const versionStr = parameters.context.version ? `/${parameters.context.version}` : "";
   let url = BASE_URL + versionStr + parameters.path;
   parameters.pathParams.forEach((p) => (url = url.replace(`{${p}}`, parameters.params[p])));
+  const nonPathParams: any = {};
+  for (const key in parameters.params) {
+    if (!parameters.pathParams.includes(key)) {
+      nonPathParams[key] = parameters.params[key];
+    }
+  }
+  if (nonPathParams.sort && Array.isArray(nonPathParams.sort))
+    nonPathParams.sort = nonPathParams.sort.join(",");
   return axios({
     url,
     method: parameters.method,
     headers: {
       Authorization: `Bearer ${parameters.context.key}`,
     },
+    params: nonPathParams,
   });
 }
 

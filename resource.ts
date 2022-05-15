@@ -3,6 +3,7 @@ import { createRequest, RequestParameters } from "./createRequest";
 import Context from "./context";
 import Params from "./params";
 import Student from "./Student";
+import Schema from "./schemas";
 
 namespace Resource {
   export class Students {
@@ -10,7 +11,22 @@ namespace Resource {
     constructor(context: Context) {
       this.context = context;
     }
-    list() {}
+    async list(params: Params.Resource.Students.List): Promise<Student[]> {
+      try {
+        const parameters: RequestParameters = {
+          path: "/students",
+          method: "GET",
+          context: this.context,
+          params,
+          pathParams: [],
+        };
+        const res = await createRequest(parameters);
+
+        return res.data.data.students.map((student: Schema.Student) => new Student(student));
+      } catch (err: any) {
+        throw (err as AxiosError).response?.data;
+      }
+    }
     async get(params: Params.Resource.Students.Get): Promise<Student> {
       try {
         const parameters: RequestParameters = {

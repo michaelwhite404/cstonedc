@@ -6,10 +6,14 @@ dotenv.config({ path: ".env" });
 const cstone = new CStone({ key: process.env.TOKEN!, version: "v2" });
 
 const run = async () => {
-  const student = await cstone.students.get({
-    studentId: "5f43ba6edca18d644cbf6c74",
+  const students = await cstone.students.list({
+    limit: 5,
+    lastName: "Davis",
+    sort: ["-grade"],
   });
-  console.log(student);
+  console.log(students.length);
 };
 
+console.time("Request Time");
 run().catch(console.error);
+console.timeEnd("Request Time");
