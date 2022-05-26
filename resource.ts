@@ -4,6 +4,7 @@ import Context from "./context";
 import Params from "./params";
 import Student from "./Student";
 import Schema from "./schemas";
+import Class from "./Class";
 
 class Me {}
 namespace Resource {
@@ -12,7 +13,7 @@ namespace Resource {
     constructor(context: Context) {
       this.context = context;
     }
-    async list(params: Params.Resource.Students.List): Promise<Student[]> {
+    async list(params?: Params.Resource.Students.List): Promise<Student[]> {
       try {
         const parameters: RequestParameters = {
           path: "/students",
@@ -75,8 +76,24 @@ namespace Resource {
         throw (err as AxiosError).response?.data;
       }
     }
-    update() {}
-    delete() {}
+    async update(params: Params.Resource.Students.Update) {}
+    async delete() {}
+    async group() {
+      try {
+        const parameters: RequestParameters = {
+          path: "/students/group",
+          method: "GET",
+          context: this.context,
+          pathParams: [],
+          bodyParams: [],
+          requiredParams: [],
+        };
+        const res = await createRequest(parameters);
+        return (res.data.data.grades as Class[]).map((c) => new Class(c.grade, c.students));
+      } catch (err: any) {
+        throw (err as AxiosError).response?.data;
+      }
+    }
   }
 }
 

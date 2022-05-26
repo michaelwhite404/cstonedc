@@ -42,10 +42,10 @@ export interface RequestParameters {
   method: "GET" | "HEAD" | "POST" | "DELETE" | "PUT" | "CONNECT" | "OPTIONS" | "TRACE" | "PATCH";
   context: Context;
   /** The parameters entered by the user */
-  params: any;
+  params?: any;
   /** Parameters to inject into the URL path */
   pathParams: string[];
-  /** Keys to add to the brequest body */
+  /** Keys to add to the request body */
   bodyParams: string[];
   /** Parameters that must be added  */
   requiredParams: string[];

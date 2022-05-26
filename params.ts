@@ -1,17 +1,20 @@
 import Student from "./Student";
-import PartialBy from "./types/partialBy";
+
+interface StudentId {
+  /** The unique ID of the student */
+  studentId: string;
+}
 
 /** A namespace for all parameter types */
 namespace Params {
   export namespace Resource {
     /** A namespace for all of parameters relating to the student resource */
     export namespace Students {
-      export interface Get {
-        /** The unique ID of the student */
-        studentId: string;
-      }
+      export interface Get extends StudentId {}
       export interface List extends Partial<Student>, APIMultiParams<Student> {}
-      export interface Create extends PartialBy<Omit<Student, "_id" | "fullName">, "slug"> {}
+      export interface Create extends Omit<Student, "_id" | "fullName" | "slug"> {}
+      export interface Update extends StudentId {}
+      export interface Delete extends StudentId {}
     }
   }
 }
