@@ -5,9 +5,10 @@ import Params from "./params";
 import Student from "./Student";
 import Schema from "./schemas";
 
+class Me {}
 namespace Resource {
   export class Students {
-    context: Context;
+    private readonly context: Context;
     constructor(context: Context) {
       this.context = context;
     }
@@ -19,6 +20,8 @@ namespace Resource {
           context: this.context,
           params,
           pathParams: [],
+          bodyParams: [],
+          requiredParams: [],
         };
         const res = await createRequest(parameters);
 
@@ -35,6 +38,8 @@ namespace Resource {
           context: this.context,
           params,
           pathParams: ["studentId"],
+          bodyParams: [],
+          requiredParams: ["studentId"],
         };
         const res = await createRequest(parameters);
         return new Student(res.data.data.student);
@@ -42,7 +47,34 @@ namespace Resource {
         throw (err as AxiosError).response?.data;
       }
     }
-    create() {}
+    async create(params: Params.Resource.Students.Create) {
+      try {
+        const parameters: RequestParameters = {
+          path: "/students",
+          method: "POST",
+          context: this.context,
+          params,
+          pathParams: [],
+          bodyParams: [
+            "firstName",
+            "lastName",
+            "schoolEmail",
+            "personalEmail",
+            "status",
+            "grade",
+            "slug",
+            "mainPhoto",
+            "slug",
+            "aftercare",
+          ],
+          requiredParams: ["firstName", "lastName", "schoolEmail", "status"],
+        };
+        const res = await createRequest(parameters);
+        return new Student(res.data.data.student);
+      } catch (err: any) {
+        throw (err as AxiosError).response?.data;
+      }
+    }
     update() {}
     delete() {}
   }

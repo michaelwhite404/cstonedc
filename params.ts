@@ -1,4 +1,5 @@
 import Student from "./Student";
+import PartialBy from "./types/partialBy";
 
 /** A namespace for all parameter types */
 namespace Params {
@@ -10,6 +11,7 @@ namespace Params {
         studentId: string;
       }
       export interface List extends Partial<Student>, APIMultiParams<Student> {}
+      export interface Create extends PartialBy<Omit<Student, "_id" | "fullName">, "slug"> {}
     }
   }
 }
@@ -17,9 +19,12 @@ namespace Params {
 export default Params;
 
 interface APIMultiParams<T = any> {
-  /** Limit the number of results to return */
+  /**
+   * Limit the number of results to return
+   * @default 100
+   * */
   limit?: number;
   page?: number;
   sort?: SortParams<T>;
 }
-type SortParams<T> = (keyof T | `-${string & keyof T}`)[];
+type SortParams<T> = (keyof T | `-${string & keyof T}`)[] | string;
